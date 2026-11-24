@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест: §17. Политическая система общества — 20 заданий</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+  body {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #6a11cb 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #1e3c72 0%, #6a11cb 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+  }
+  .header h1 { font-size: 26px; margin-bottom: 8px; }
+  .header p { opacity: 0.9; font-size: 15px; }
+  .progress-wrap { background: #f0f0f0; height: 10px; position: relative; }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #1e3c72, #6a11cb, #ff6b6b);
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+  .quiz-body { padding: 30px; }
+  .question { display: none; animation: fadeIn 0.5s ease; }
+  .question.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-number {
+    color: #6a11cb;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .q-type {
+    display: inline-block;
+    background: #e8eaf6;
+    color: #1e3c72;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .q-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .option:hover { border-color: #6a11cb; background: #f5f0ff; transform: translateX(3px); }
+  .option.selected { border-color: #6a11cb; background: #f5f0ff; }
+  .option input { cursor: pointer; accent-color: #6a11cb; }
+  .option.disabled { pointer-events: none; opacity: 0.7; }
+  .match-table { width: 100%; border-collapse: collapse; }
+  .match-table td { padding: 10px; vertical-align: middle; }
+  .match-table select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fafafa;
+  }
+  .match-table select.disabled { pointer-events: none; opacity: 0.7; }
+  .text-input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: #6a11cb; }
+  .text-input.readonly { background: #f5f5f5; }
+  .order-list { list-style: none; counter-reset: item; }
+  .order-item {
+    padding: 12px 18px;
+    margin-bottom: 8px;
+    background: #f5f0ff;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s;
+  }
+  .order-item:hover { border-color: #6a11cb; background: #ede7f6; }
+  .order-item.dragging { opacity: 0.5; }
+  .order-item.disabled { pointer-events: none; opacity: 0.7; }
+  .order-num {
+    width: 30px;
+    height: 30px;
+    background: #6a11cb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .btn-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #1e3c72, #6a11cb);
+    color: white;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(106,17,203,0.4); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-secondary { background: #f0f0f0; color: #333; }
+  .btn-secondary:hover { background: #e0e0e0; }
+  .btn-success { background: linear-gradient(135deg, #43a047, #1b5e20); color: white; }
+  .btn-success:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67,160,71,0.4); }
+  .btn-warning { background: linear-gradient(135deg, #fb8c00, #e65100); color: white; }
+  .btn-warning:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(251,140,0,0.4); }
+  .btn-info { background: linear-gradient(135deg, #1e88e5, #0d47a1); color: white; }
+  .btn-info:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(30,136,229,0.4); }
+  .results { display: none; text-align: center; padding: 20px 0; }
+  .results.active { display: block; animation: fadeIn 0.6s; }
+  .score-circle {
+    width: 180px;
+    height: 180px;
+    margin: 20px auto;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .score-circle .score-num { font-size: 48px; line-height: 1; }
+  .score-circle .score-label { font-size: 14px; opacity: 0.9; margin-top: 5px; }
+  .grade { font-size: 24px; margin: 20px 0; font-weight: 600; }
+  .summary {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    text-align: left;
+  }
+  .summary h3 { margin-bottom: 12px; color: #1e3c72; }
+  .summary-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .summary-item:last-child { border-bottom: none; }
+  .summary-item .q-title { font-size: 13px; flex: 1; }
+  .status-ok { color: #4caf50; font-weight: bold; }
+  .status-bad { color: #f44336; font-weight: bold; }
+  .status-partial { color: #ff9800; font-weight: bold; }
+  .answer-review {
+    background: #fafafa;
+    border-left: 4px solid #6a11cb;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 14px;
+  }
+  .answer-review.correct-review { border-left-color: #4caf50; background: #f1f8e9; }
+  .answer-review.incorrect-review { border-left-color: #f44336; background: #fff5f5; }
+  .answer-review.partial-review { border-left-color: #ff9800; background: #fff8e1; }
+  .answer-review .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+  }
+  .answer-review .review-q { font-weight: 600; color: #1e3c72; flex: 1; font-size: 13px; }
+  .answer-review .review-status {
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  .answer-review .review-answer {
+    color: #555;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .answer-review .review-answer strong { color: #1e3c72; }
+  .start-screen { text-align: center; padding: 40px 20px; }
+  .start-screen h2 { font-size: 28px; margin-bottom: 15px; color: #1e3c72; }
+  .start-screen p { margin-bottom: 10px; color: #555; line-height: 1.6; }
+  .info-box {
+    background: #f5f0ff;
+    border-left: 4px solid #6a11cb;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    text-align: left;
+  }
+  .info-box ul { margin-left: 20px; margin-top: 8px; }
+  .info-box li { margin: 5px 0; }
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .type-card {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 13px;
+  }
+  .type-card strong { color: #6a11cb; display: block; margin-bottom: 4px; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, #1e3c72, #6a11cb);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .stat-card .num { font-size: 24px; font-weight: bold; }
+  .stat-card .lbl { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+  .student-form {
+    background: #f9f9ff;
+    border: 2px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 25px;
+    margin: 25px 0;
+    text-align: left;
+  }
+  .student-form h3 {
+    color: #1e3c72;
+    margin-bottom: 15px;
+    font-size: 18px;
+  }
+  .form-group { margin-bottom: 15px; }
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .form-group label .required { color: #e53935; }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: border 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #6a11cb;
+  }
+  .form-group input.error, .form-group select.error {
+    border-color: #e53935;
+    background: #ffebee;
+  }
+  .error-msg {
+    color: #e53935;
+    font-size: 13px;
+    margin-top: 4px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+  .send-section {
+    background: linear-gradient(135deg, #f5f0ff 0%, #e8eaf6 100%);
+    border: 2px solid #6a11cb;
+    border-radius: 16px;
+    padding: 25px;
+    margin: 25px 0;
+    text-align: left;
+  }
+  .send-section h3 {
+    color: #1e3c72;
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+  }
+  .send-section p {
+    color: #555;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .send-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .send-buttons .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    font-size: 14px;
+  }
+  .student-info-card {
+    background: white;
+    border: 2px solid #6a11cb;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px 0;
+    text-align: left;
+  }
+  .student-info-card .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed #e0e0e0;
+    font-size: 14px;
+  }
+  .student-info-card .info-row:last-child { border-bottom: none; }
+  .student-info-card .info-label { color: #666; }
+  .student-info-card .info-value { font-weight: 600; color: #1e3c72; }
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #333;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+    font-size: 14px;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast.success { background: #43a047; }
+  .toast.error { background: #e53935; }
+  .toast.warning { background: #fb8c00; }
+  .attempts-section {
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+    border: 2px solid #ffb300;
+    border-radius: 16px;
+    padding: 25px;
+    margin: 25px 0;
+    text-align: left;
+  }
+  .attempts-section h3 {
+    color: #e65100;
+    margin-bottom: 15px;
+    font-size: 20px;
+    text-align: center;
+  }
+  .attempts-section .attempts-info {
+    text-align: center;
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  .attempts-counter {
+    display: inline-block;
+    background: #ffb300;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  .attempts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .attempt-item {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-left: 5px solid #6a11cb;
+    border-radius: 10px;
+    padding: 12px 15px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    align-items: center;
+    font-size: 14px;
+  }
+  .attempt-item.current {
+    border-left-color: #43a047;
+    background: #f1f8e9;
+    box-shadow: 0 2px 8px rgba(67,160,71,0.2);
+  }
+  .attempt-number {
+    width: 36px;
+    height: 36px;
+    background: #6a11cb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .attempt-item.current .attempt-number { background: #43a047; }
+  .attempt-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .attempt-details .date {
+    color: #666;
+    font-size: 12px;
+  }
+  .attempt-details .student {
+    font-weight: 600;
+    color: #1e3c72;
+  }
+  .attempt-result {
+    text-align: right;
+    font-weight: bold;
+  }
+  .attempt-result .percent {
+    font-size: 18px;
+    color: #1e3c72;
+  }
+  .attempt-result .grade-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: white;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .limit-warning {
+    background: #ffebee;
+    border-left: 4px solid #e53935;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #b71c1c;
+    text-align: center;
+  }
+  .limit-warning strong { display: block; margin-bottom: 5px; }
+  .footer-note {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #eee;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📘 Интерактивный тест по обществознанию</h1>
+    <p>§17. Политическая система общества · 10 класс · 20 заданий</p>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="quiz-body">
+    <div id="startScreen" class="start-screen">
+      <h2>Добро пожаловать!</h2>
+      <p>Проверьте свои знания по параграфу <strong>«Политическая система общества»</strong>.</p>
+
+      <div class="student-form">
+        <h3>👤 Данные ученика</h3>
+        <div class="form-group">
+          <label>Фамилия <span class="required">*</span></label>
+          <input type="text" id="lastName" placeholder="Например, Иванов">
+          <div class="error-msg" id="lastNameError">Пожалуйста, введите фамилию</div>
+        </div>
+        <div class="form-group">
+          <label>Имя <span class="required">*</span></label>
+          <input type="text" id="firstName" placeholder="Например, Пётр">
+          <div class="error-msg" id="firstNameError">Пожалуйста, введите имя</div>
+        </div>
+        <div class="form-group">
+          <label>Класс <span class="required">*</span></label>
+          <select id="classGrade">
+            <option value="">— выберите класс —</option>
+            <option value="10А">10А</option>
+            <option value="10Б">10Б</option>
+            <option value="10В">10В</option>
+            <option value="10Г">10Г</option>
+            <option value="10Д">10Д</option>
+            <option value="другой">другой</option>
+          </select>
+          <div class="error-msg" id="classError">Пожалуйста, выберите класс</div>
+        </div>
+        <div class="form-group">
+          <label>Дата</label>
+          <input type="text" id="testDate" readonly>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <strong>📋 Вариативность заданий (20 вопросов):</strong>
+        <div class="type-grid">
+          <div class="type-card"><strong>1. Одиночный выбор (4)</strong>Выбор одного правильного ответа</div>
+          <div class="type-card"><strong>2. Множественный выбор (3)</strong>Выбор нескольких верных ответов</div>
+          <div class="type-card"><strong>3. Верно / Неверно (3)</strong>Оценка утверждения</div>
+          <div class="type-card"><strong>4. Соответствие (3)</strong>Соединение пар понятий</div>
+          <div class="type-card"><strong>5. Ввод ответа (3)</strong>Открытый вопрос</div>
+          <div class="type-card"><strong>6. Упорядочивание (2)</strong>Расположение в правильной последовательности</div>
+          <div class="type-card"><strong>7. Ситуационная задача (1)</strong>Анализ примера</div>
+          <div class="type-card"><strong>8. Работа с цитатой (1)</strong>Анализ высказывания</div>
+        </div>
+      </div>
+
+      <div class="info-box" style="background:#fff3e0; border-left-color:#fb8c00;">
+        <strong>⚠️ Важно:</strong> У вас есть <strong>${MAX_ATTEMPTS} попытки</strong> прохождения теста. Правильные ответы и разбор результатов будут показаны только в конце, после завершения всех вопросов.
+      </div>
+
+      <div id="attemptsWarning" style="display:none;"></div>
+
+      <button class="btn btn-primary" onclick="startQuiz()" style="font-size:17px; padding:14px 40px;">🚀 Начать тест</button>
+
+      <div class="footer-note">
+        © Учебник «Обществознание. 10 класс» под ред. Д. А. Медведева (Просвещение, 2026)
+      </div>
+    </div>
+
+    <div id="quizContent" style="display:none;"></div>
+    <div id="results" class="results"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// ⚙️ НАСТРОЙКИ ДЛЯ УЧИТЕЛЯ
+// ============================================================
+const MAX_ATTEMPTS = 2; // максимальное количество попыток
+const STORAGE_KEY_ATTEMPTS = 'testAttempts_vladciklinsky';
+const STORAGE_KEY_STUDENT = 'studentData_vladciklinsky';
+// ============================================================
+
+const questions = [
+  { type: 'single', text: 'Что является главным средством достижения политических целей, согласно параграфу?', options: ['Экономические ресурсы', 'Политическая власть', 'Культурные традиции', 'Средства массовой информации'], correct: 1, correctAnswer: 'Политическая власть' },
+  { type: 'single', text: 'Какой тип политического лидерства основан на вере в особые способности, героизм или гениальность властителя?', options: ['Традиционный', 'Рационально-легальный', 'Харизматический', 'Авторитарный'], correct: 2, correctAnswer: 'Харизматический' },
+  { type: 'single', text: 'Какой стиль лидерства предполагает, что решения принимаются лично лидером при сильной централизации власти?', options: ['Демократический', 'Либеральный', 'Автократический', 'Коллегиальный'], correct: 2, correctAnswer: 'Автократический' },
+  { type: 'single', text: 'Сознательное неучастие граждан в политической жизни (неучастие в выборах и референдумах) называется:', options: ['Активизм', 'Абсентеизм', 'Патриотизм', 'Конформизм'], correct: 1, correctAnswer: 'Абсентеизм' },
+  { type: 'multiple', text: 'Выберите ВСЕ отличительные признаки государственной власти:', options: ['Публичность', 'Добровольность участия', 'Верховенство', 'Легальность в использовании силы', 'Моноцентричность', 'Отсутствие ресурсов'], correct: [0, 2, 3, 4], correctAnswer: 'Публичность, Верховенство, Легальность в использовании силы, Моноцентричность' },
+  { type: 'multiple', text: 'Какие функции выполняет политическая система общества?', options: ['Целенаправленное регулирование общественных процессов', 'Производство материальных благ', 'Политическая социализация граждан', 'Извлечение ресурсов для функционирования системы', 'Авторитетное распределение ценностей', 'Регулирование только экономических отношений'], correct: [0, 2, 3, 4], correctAnswer: 'Регулирование общественных процессов, политическая социализация, извлечение ресурсов, авторитетное распределение ценностей' },
+  { type: 'multiple', text: 'Какие подсистемы входят в состав политической системы общества?', options: ['Институциональная', 'Нормативная', 'Коммуникативная', 'Культурно-идеологическая', 'Технологическая', 'Лингвистическая'], correct: [0, 1, 2, 3], correctAnswer: 'Институциональная, Нормативная, Коммуникативная, Культурно-идеологическая' },
+  { type: 'truefalse', text: 'Политическая элита — это относительно немногочисленная социальная группа, профессионально осуществляющая деятельность в сфере политической власти.', options: ['Верно', 'Неверно'], correct: 0, correctAnswer: 'Верно' },
+  { type: 'truefalse', text: 'Власть традиционного лидера основана на вере в законность существующих порядков.', options: ['Верно', 'Неверно'], correct: 1, correctAnswer: 'Неверно' },
+  { type: 'truefalse', text: 'Политический процесс отражает технологию осуществления политической власти и сочетает государственное управление и политическое участие граждан.', options: ['Верно', 'Неверно'], correct: 0, correctAnswer: 'Верно' },
+  { type: 'match', text: 'Установите соответствие между подсистемой политической системы и её содержанием:', pairs: [{ left: 'Институциональная', right: 'Государство, партии, СМИ' }, { left: 'Нормативная', right: 'Нормы права, традиции, символы' }, { left: 'Коммуникативная', right: 'Связь между субъектами политики' }, { left: 'Культурно-идеологическая', right: 'Знания, идеологии, концепции граждан' }], shuffledRights: ['Знания, идеологии, концепции граждан', 'Нормы права, традиции, символы', 'Связь между субъектами политики', 'Государство, партии, СМИ'], correctAnswer: 'Институциональная — Государство, партии, СМИ; Нормативная — Нормы права, традиции, символы; Коммуникативная — Связь между субъектами политики; Культурно-идеологическая — Знания, идеологии, концепции граждан' },
+  { type: 'match', text: 'Соотнесите тип политического лидерства с его основой:', pairs: [{ left: 'Традиционное', right: 'Вера в святость традиций' }, { left: 'Рационально-легальное', right: 'Вера в законность порядков' }, { left: 'Харизматическое', right: 'Вера в особые способности лидера' }], shuffledRights: ['Вера в особые способности лидера', 'Вера в законность порядков', 'Вера в святость традиций'], correctAnswer: 'Традиционное — Вера в святость традиций; Рационально-легальное — Вера в законность порядков; Харизматическое — Вера в особые способности лидера' },
+  { type: 'match', text: 'Соотнесите стиль лидерства с его характеристикой:', pairs: [{ left: 'Автократический', right: 'Решения принимает единолично' }, { left: 'Демократический', right: 'В решениях участвует команда' }, { left: 'Либеральный', right: 'Делегирует решения нижестоящим' }], shuffledRights: ['Делегирует решения нижестоящим', 'В решениях участвует команда', 'Решения принимает единолично'], correctAnswer: 'Автократический — Решения принимает единолично; Демократический — В решениях участвует команда; Либеральный — Делегирует решения нижестоящим' },
+  { type: 'input', text: 'Впишите пропущенное слово: «Вовлечённость гражданина в политические процессы называют политическим ________».', correct: ['участие', 'участием'], correctAnswer: 'участие' },
+  { type: 'input', text: 'Впишите пропущенное слово: «Относительно немногочисленная социальная группа, профессионально осуществляющая деятельность в сфере политической власти, — это политическая ________».', correct: ['элита'], correctAnswer: 'элита' },
+  { type: 'input', text: 'Впишите пропущенное слово: «Власть ________ лидера основана на вере в особые способности, героизм, гениальность властителя».', correct: ['харизматического'], correctAnswer: 'харизматического' },
+  { type: 'order', text: 'Расположите подсистемы политической системы в порядке от «структурной» к «содержательной»:', items: ['Институциональная (организации)', 'Нормативная (правила)', 'Коммуникативная (связи)', 'Культурно-идеологическая (идеи и ценности)'], correctOrder: [0, 1, 2, 3], correctAnswer: 'Институциональная → Нормативная → Коммуникативная → Культурно-идеологическая' },
+  { type: 'order', text: 'Расположите элементы в формуле С.В. Володенкова в правильной последовательности:', items: ['Прогноз', 'Образ будущего', 'Проект', 'Социальные изменения'], correctOrder: [0, 1, 2, 3], correctAnswer: 'Прогноз → Образ будущего → Проект → Социальные изменения' },
+  { type: 'single', text: 'Молодой лидер новой политической партии обладает яркой внешностью, ораторским талантом и способен вдохновлять массы. Его сторонники верят в его исключительные качества. Какой тип лидерства это иллюстрирует?', options: ['Традиционное', 'Рационально-легальное', 'Харизматическое', 'Бюрократическое'], correct: 2, correctAnswer: 'Харизматическое' },
+  { type: 'single', text: 'Какую мысль выражает цитата С.В. Володенкова: «Образ будущего — это компас. Не техническое задание, а вдохновляющий образ того, каким мы хотим видеть своё общество через 10, 20, 30 лет»?', options: ['Политика должна реагировать только на текущие проблемы', 'Образ будущего задаёт направление политического курса', 'Политика не нуждается в долгосрочном планировании', 'Технические задания важнее идеалов'], correct: 1, correctAnswer: 'Образ будущего задаёт направление политического курса' }
+];
+
+let currentQ = 0;
+let answers = [];
+let userAnswers = [];
+let partialAnswers = [];
+let studentData = {};
+let testStartTime = null;
+
+document.getElementById('testDate').value = new Date().toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' });
+
+// Обновляем текст в стартовом экране
+const attemptsInfoBox = document.querySelector('.info-box[style*="fff3e0"]');
+if (attemptsInfoBox) {
+  attemptsInfoBox.innerHTML = `<strong>⚠️ Важно:</strong> У вас есть <strong>${MAX_ATTEMPTS} попытки</strong> прохождения теста. Правильные ответы и разбор результатов будут показаны только в конце, после завершения всех вопросов.`;
+}
+
+function getAttempts() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY_ATTEMPTS);
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveAttempt(attempt) {
+  const attempts = getAttempts();
+  attempts.push(attempt);
+  const trimmed = attempts.slice(-MAX_ATTEMPTS);
+  localStorage.setItem(STORAGE_KEY_ATTEMPTS, JSON.stringify(trimmed));
+  return trimmed;
+}
+
+function getAttemptsCount() {
+  return getAttempts().length;
+}
+
+function updateAttemptsWarning() {
+  const container = document.getElementById('attemptsWarning');
+  const attempts = getAttempts();
+  const count = attempts.length;
+
+  if (count === 0) {
+    container.style.display = 'none';
+    return;
+  }
+
+  const remaining = MAX_ATTEMPTS - count;
+  let html = '';
+
+  if (remaining <= 0) {
+    html = `<div class="limit-warning">
+      <strong>⚠️ Лимит попыток исчерпан</strong>
+      Вы использовали все ${MAX_ATTEMPTS} попытки. Повторное прохождение теста невозможно.
+      <br><br>
+      <button class="btn btn-info" onclick="showAllAttempts()">📊 Посмотреть все попытки</button>
+    </div>`;
+  } else {
+    html = `<div class="info-box" style="background:#fff3e0; border-left-color:#fb8c00;">
+      <strong>📊 У вас уже есть ${count} ${count === 1 ? 'попытка' : (count < 5 ? 'попытки' : 'попыток')} из ${MAX_ATTEMPTS}</strong>
+      Осталось попыток: <strong>${remaining}</strong>
+      <br><br>
+      <button class="btn btn-info" onclick="showAllAttempts()" style="padding:8px 16px; font-size:13px;">📋 Посмотреть историю попыток</button>
+    </div>`;
+  }
+
+  container.innerHTML = html;
+  container.style.display = 'block';
+}
+
+function showAllAttempts() {
+  const attempts = getAttempts();
+  if (attempts.length === 0) {
+    showToast('История попыток пуста', 'warning');
+    return;
+  }
+
+  let html = '<h3 style="color:#1e3c72; margin-bottom:15px;">📋 История попыток</h3>';
+  html += '<div class="attempts-list">';
+  attempts.forEach((a, i) => {
+    const gradeColor = a.percent >= 90 ? '#43a047' : a.percent >= 75 ? '#1e88e5' : a.percent >= 50 ? '#fb8c00' : '#e53935';
+    html += `<div class="attempt-item">
+      <div class="attempt-number">${i + 1}</div>
+      <div class="attempt-details">
+        <div class="student">${a.lastName} ${a.firstName}, ${a.classGrade}</div>
+        <div class="date">${a.date} · ${a.time} · ${a.timeSpent}</div>
+        <div style="font-size:12px; color:#666;">Правильных: ${a.correct}/${a.total}</div>
+      </div>
+      <div class="attempt-result">
+        <div class="percent">${a.percent}%</div>
+        <div class="grade-badge" style="background:${gradeColor};">${a.grade}</div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+
+  const modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; display:flex; align-items:center; justify-content:center; padding:20px;';
+  modal.innerHTML = `<div style="background:white; border-radius:16px; padding:25px; max-width:700px; width:100%; max-height:80vh; overflow-y:auto;">
+    ${html}
+    <div style="text-align:center; margin-top:20px;">
+      <button class="btn btn-secondary" onclick="this.closest('div[style*=fixed]').remove()">Закрыть</button>
+    </div>
+  </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.remove();
+  });
+}
+
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast show ' + type;
+  setTimeout(() => toast.className = 'toast', 3000);
+}
+
+function validateStudentForm() {
+  let isValid = true;
+  const lastName = document.getElementById('lastName').value.trim();
+  const firstName = document.getElementById('firstName').value.trim();
+  const classGrade = document.getElementById('classGrade').value;
+
+  document.querySelectorAll('.form-group input, .form-group select').forEach(el => el.classList.remove('error'));
+  document.querySelectorAll('.error-msg').forEach(el => el.classList.remove('show'));
+
+  if (!lastName) {
+    document.getElementById('lastName').classList.add('error');
+    document.getElementById('lastNameError').classList.add('show');
+    isValid = false;
+  }
+  if (!firstName) {
+    document.getElementById('firstName').classList.add('error');
+    document.getElementById('firstNameError').classList.add('show');
+    isValid = false;
+  }
+  if (!classGrade) {
+    document.getElementById('classGrade').classList.add('error');
+    document.getElementById('classError').classList.add('show');
+    isValid = false;
+  }
+
+  if (isValid) {
+    studentData = {
+      lastName,
+      firstName,
+      classGrade,
+      date: document.getElementById('testDate').value,
+      timestamp: new Date().toISOString()
+    };
+    localStorage.setItem(STORAGE_KEY_STUDENT, JSON.stringify(studentData));
+  }
+
+  return isValid;
+}
+
+function startQuiz() {
+  if (getAttemptsCount() >= MAX_ATTEMPTS) {
+    showToast('⚠️ Лимит попыток исчерпан!', 'error');
+    showAllAttempts();
+    return;
+  }
+
+  if (!validateStudentForm()) {
+    showToast('Заполните все обязательные поля', 'error');
+    return;
+  }
+  testStartTime = Date.now();
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('quizContent').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const total = questions.length;
+  document.getElementById('progressBar').style.width = ((currentQ) / total * 100) + '%';
+
+  const typeLabels = { 'single': 'Одиночный выбор', 'multiple': 'Множественный выбор', 'truefalse': 'Верно / Неверно', 'match': 'Соответствие', 'input': 'Открытый вопрос', 'order': 'Упорядочивание' };
+  const typeLabel = typeLabels[q.type] || 'Задание';
+
+  let html = `<div class="question active">
+    <div class="q-header">
+      <div class="q-number">Вопрос ${currentQ + 1} из ${total}</div>
+      <div class="q-type">${typeLabel}</div>
+    </div>
+    <div class="q-text">${q.text}</div>`;
+
+  if (q.type === 'single' || q.type === 'truefalse') {
+    html += '<div class="options">';
+    q.options.forEach((opt, i) => {
+      html += `<label class="option" data-idx="${i}"><input type="radio" name="q${currentQ}" value="${i}"><span>${opt}</span></label>`;
+    });
+    html += '</div>';
+  } else if (q.type === 'multiple') {
+    html += '<div class="options">';
+    q.options.forEach((opt, i) => {
+      html += `<label class="option" data-idx="${i}"><input type="checkbox" name="q${currentQ}" value="${i}"><span>${opt}</span></label>`;
+    });
+    html += '</div>';
+  } else if (q.type === 'match') {
+    html += '<table class="match-table">';
+    q.pairs.forEach((p, i) => {
+      const opts = q.shuffledRights.map(r => `<option value="${r}">${r}</option>`).join('');
+      html += `<tr><td style="font-weight:500;">${p.left}</td><td><select data-idx="${i}"><option value="">— выберите —</option>${opts}</select></td></tr>`;
+    });
+    html += '</table>';
+  } else if (q.type === 'input') {
+    html += `<input type="text" class="text-input" id="textInput" placeholder="Введите ответ...">`;
+  } else if (q.type === 'order') {
+    html += `<ul class="order-list" id="orderList">`;
+    q.items.forEach((item, i) => {
+      html += `<li class="order-item" draggable="true" data-idx="${i}"><div class="order-num">${i + 1}</div><span>${item}</span></li>`;
+    });
+    html += `</ul><p style="font-size:13px; color:#666; margin-top:10px;">💡 Перетаскивайте элементы для изменения порядка</p>`;
+  }
+
+  html += `<div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevQuestion()" ${currentQ === 0 ? 'disabled style="visibility:hidden;"' : ''}>← Назад</button>
+      <button class="btn btn-primary" id="checkBtn" onclick="checkAnswer()">Проверить</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none;">Далее →</button>
+    </div>
+  </div>`;
+
+  document.getElementById('quizContent').innerHTML = html;
+  if (q.type === 'order') initDragAndDrop();
+}
+
+function initDragAndDrop() {
+  const list = document.getElementById('orderList');
+  let dragItem = null;
+  list.querySelectorAll('.order-item').forEach(item => {
+    item.addEventListener('dragstart', e => { dragItem = item; item.classList.add('dragging'); });
+    item.addEventListener('dragend', e => { item.classList.remove('dragging'); updateOrderNumbers(); });
+    item.addEventListener('dragover', e => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(list, e.clientY);
+      if (afterElement == null) list.appendChild(dragItem);
+      else list.insertBefore(dragItem, afterElement);
+    });
+  });
+}
+
+function getDragAfterElement(container, y) {
+  const elements = [...container.querySelectorAll('.order-item:not(.dragging)')];
+  return elements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) return { offset, element: child };
+    return closest;
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+function updateOrderNumbers() {
+  document.querySelectorAll('.order-item').forEach((item, i) => {
+    item.querySelector('.order-num').textContent = i + 1;
+  });
+}
+
+function checkAnswer() {
+  const q = questions[currentQ];
+  let isCorrect = false;
+  let isPartial = false;
+  let userAnswer = null;
+
+  if (q.type === 'single' || q.type === 'truefalse') {
+    const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
+    if (!selected) { alert('Пожалуйста, выберите вариант ответа'); return; }
+    userAnswer = parseInt(selected.value);
+    isCorrect = userAnswer === q.correct;
+    // Блокируем выбор, но НЕ подсвечиваем правильный/неправильный
+    document.querySelectorAll('.option').forEach(opt => opt.classList.add('disabled'));
+  } else if (q.type === 'multiple') {
+    const selected = Array.from(document.querySelectorAll(`input[name="q${currentQ}"]:checked`)).map(el => parseInt(el.value));
+    if (selected.length === 0) { alert('Выберите хотя бы один вариант'); return; }
+    userAnswer = selected;
+    const correctSet = new Set(q.correct);
+    const selectedSet = new Set(selected);
+    isCorrect = q.correct.every(c => selectedSet.has(c)) && selected.every(s => correctSet.has(s));
+    const correctHits = selected.filter(s => correctSet.has(s)).length;
+    if (!isCorrect && correctHits > 0 && selected.length <= q.correct.length + 1) isPartial = true;
+    document.querySelectorAll('.option').forEach(opt => opt.classList.add('disabled'));
+  } else if (q.type === 'match') {
+    const selects = document.querySelectorAll('.match-table select');
+    userAnswer = Array.from(selects).map(s => s.value);
+    if (userAnswer.some(a => a === '')) { alert('Заполните все соответствия'); return; }
+    let correctCount = 0;
+    selects.forEach((s, i) => {
+      if (s.value === q.pairs[i].right) correctCount++;
+    });
+    isCorrect = correctCount === q.pairs.length;
+    if (!isCorrect && correctCount > 0) isPartial = true;
+    selects.forEach(s => s.classList.add('disabled'));
+  } else if (q.type === 'input') {
+    const input = document.getElementById('textInput');
+    userAnswer = input.value.trim().toLowerCase();
+    if (!userAnswer) { alert('Введите ответ'); return; }
+    isCorrect = q.correct.some(c => c.toLowerCase() === userAnswer);
+    input.readOnly = true;
+    input.classList.add('readonly');
+  } else if (q.type === 'order') {
+    const items = document.querySelectorAll('.order-item');
+    userAnswer = Array.from(items).map(el => parseInt(el.dataset.idx));
+    let correctCount = 0;
+    items.forEach((el, i) => { if (parseInt(el.dataset.idx) === q.correctOrder[i]) correctCount++; });
+    isCorrect = correctCount === q.items.length;
+    if (!isCorrect && correctCount >= q.items.length / 2) isPartial = true;
+    items.forEach(el => el.classList.add('disabled'));
+  }
+
+  if (isPartial && !isCorrect) { partialAnswers[currentQ] = true; answers[currentQ] = false; }
+  else answers[currentQ] = isCorrect;
+  userAnswers[currentQ] = userAnswer;
+
+  // Переключаем кнопки: скрываем "Проверить", показываем "Далее"
+  document.getElementById('checkBtn').style.display = 'none';
+  document.getElementById('nextBtn').style.display = 'inline-block';
+  document.getElementById('nextBtn').textContent = currentQ === questions.length - 1 ? 'Показать результаты 🏆' : 'Далее →';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= questions.length) showResults();
+  else renderQuestion();
+}
+
+function prevQuestion() {
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
+}
+
+function generateReportText(stats) {
+  const lines = [];
+  lines.push('═══════════════════════════════════════════');
+  lines.push('   РЕЗУЛЬТАТЫ ТЕСТА ПО ОБЩЕСТВОЗНАНИЮ');
+  lines.push('   §17. Политическая система общества');
+  lines.push('═══════════════════════════════════════════');
+  lines.push('');
+  lines.push('👤 УЧЕНИК:');
+  lines.push(`   Фамилия: ${studentData.lastName}`);
+  lines.push(`   Имя: ${studentData.firstName}`);
+  lines.push(`   Класс: ${studentData.classGrade}`);
+  lines.push(`   Дата прохождения: ${studentData.date}`);
+  lines.push(`   Время: ${new Date().toLocaleTimeString('ru-RU')}`);
+  lines.push(`   Затрачено времени: ${stats.timeSpent}`);
+  lines.push(`   Номер попытки: ${stats.attemptNumber} из ${MAX_ATTEMPTS}`);
+  lines.push('');
+  lines.push('📊 ИТОГИ:');
+  lines.push(`   Правильных ответов: ${stats.correct} из ${stats.total}`);
+  lines.push(`   Частично верных: ${stats.partial}`);
+  lines.push(`   Неверных: ${stats.incorrect}`);
+  lines.push(`   Процент: ${stats.percent}%`);
+  lines.push(`   Оценка: ${stats.grade}`);
+  lines.push('');
+  lines.push('📈 РЕЗУЛЬТАТЫ ПО ТИПАМ ЗАДАНИЙ:');
+  const typeNames = { 'single': 'Одиночный выбор', 'multiple': 'Множественный выбор', 'truefalse': 'Верно/Неверно', 'match': 'Соответствие', 'input': 'Открытый вопрос', 'order': 'Упорядочивание' };
+  for (const t in stats.byType) {
+    const s = stats.byType[t];
+    const p = Math.round(s.correct / s.total * 100);
+    lines.push(`   • ${typeNames[t] || t}: ${s.correct.toFixed(1)}/${s.total} (${p}%)`);
+  }
+  lines.push('');
+  lines.push('📝 ПОДРОБНЫЕ ОТВЕТЫ:');
+  questions.forEach((q, i) => {
+    let status = '';
+    if (answers[i]) status = '✓ ВЕРНО';
+    else if (partialAnswers[i]) status = '◐ ЧАСТИЧНО';
+    else status = '✗ НЕВЕРНО';
+    lines.push(`   ${i + 1}. [${status}] ${q.text}`);
+    lines.push(`      Правильный ответ: ${q.correctAnswer}`);
+  });
+  lines.push('');
+  lines.push('═══════════════════════════════════════════');
+  lines.push(`Отчёт сформирован: ${new Date().toLocaleString('ru-RU')}`);
+  return lines.join('\n');
+}
+
+function showResults() {
+  document.getElementById('quizContent').style.display = 'none';
+  document.getElementById('progressBar').style.width = '100%';
+
+  const total = questions.length;
+  const correct = answers.filter(a => a).length;
+  const partial = partialAnswers.filter(a => a).length;
+  const incorrect = total - correct - partial;
+  const percent = Math.round((correct + partial * 0.5) / total * 100);
+
+  const timeSpentMs = Date.now() - testStartTime;
+  const minutes = Math.floor(timeSpentMs / 60000);
+  const seconds = Math.floor((timeSpentMs % 60000) / 1000);
+  const timeSpent = `${minutes} мин ${seconds} сек`;
+
+  let grade = '', gradeColor = '', message = '';
+  if (percent >= 90) { grade = '5 (отлично)'; gradeColor = 'linear-gradient(135deg,#43a047,#1b5e20)'; message = '🏆 Превосходно! Вы отлично усвоили материал параграфа.'; }
+  else if (percent >= 75) { grade = '4 (хорошо)'; gradeColor = 'linear-gradient(135deg,#1e88e5,#0d47a1)'; message = '👍 Хороший результат! Есть небольшие пробелы.'; }
+  else if (percent >= 50) { grade = '3 (удовлетворительно)'; gradeColor = 'linear-gradient(135deg,#fb8c00,#e65100)'; message = '📚 Стоит перечитать параграф.'; }
+  else { grade = '2 (неудовлетворительно)'; gradeColor = 'linear-gradient(135deg,#e53935,#b71c1c)'; message = '⚠️ Рекомендуем внимательно изучить §17 ещё раз.'; }
+
+  const typeStats = {};
+  questions.forEach((q, i) => {
+    if (!typeStats[q.type]) typeStats[q.type] = { total: 0, correct: 0 };
+    typeStats[q.type].total++;
+    if (answers[i]) typeStats[q.type].correct++;
+    else if (partialAnswers[i]) typeStats[q.type].correct += 0.5;
+  });
+
+  let statsHtml = '';
+  const typeNames = { 'single': 'Одиночный выбор', 'multiple': 'Множественный выбор', 'truefalse': 'Верно/Неверно', 'match': 'Соответствие', 'input': 'Открытый вопрос', 'order': 'Упорядочивание' };
+  for (const t in typeStats) {
+    const s = typeStats[t];
+    const p = Math.round(s.correct / s.total * 100);
+    statsHtml += `<div class="summary-item"><span class="q-title">${typeNames[t] || t}</span><span>${s.correct.toFixed(1)}/${s.total} (${p}%)</span></div>`;
+  }
+
+  // Подробный разбор с правильными ответами (без пояснений)
+  let reviewHtml = '';
+  questions.forEach((q, i) => {
+    let status = '', statusClass = '', statusColor = '', reviewClass = '';
+    if (answers[i]) {
+      status = '✓ Верно';
+      statusColor = '#43a047';
+      reviewClass = 'correct-review';
+    } else if (partialAnswers[i]) {
+      status = '◐ Частично';
+      statusColor = '#ff9800';
+      reviewClass = 'partial-review';
+    } else {
+      status = '✗ Неверно';
+      statusColor = '#e53935';
+      reviewClass = 'incorrect-review';
+    }
+
+    // Формируем текст ответа ученика
+    let userAnswerText = '';
+    if (q.type === 'single' || q.type === 'truefalse') {
+      userAnswerText = q.options[userAnswers[i]] || '—';
+    } else if (q.type === 'multiple') {
+      userAnswerText = userAnswers[i].map(idx => q.options[idx]).join(', ');
+    } else if (q.type === 'match') {
+      userAnswerText = q.pairs.map((p, idx) => `${p.left} → ${userAnswers[i][idx]}`).join('; ');
+    } else if (q.type === 'input') {
+      userAnswerText = userAnswers[i];
+    } else if (q.type === 'order') {
+      userAnswerText = userAnswers[i].map(idx => q.items[idx]).join(' → ');
+    }
+
+    reviewHtml += `<div class="answer-review ${reviewClass}">
+      <div class="review-header">
+        <div class="review-q">${i + 1}. ${q.text}</div>
+        <div class="review-status" style="background:${statusColor};">${status}</div>
+      </div>
+      <div class="review-answer">
+        <div><strong>Ваш ответ:</strong> ${userAnswerText}</div>
+        <div><strong>Правильный ответ:</strong> ${q.correctAnswer}</div>
+      </div>
+    </div>`;
+  });
+
+  const attemptNumber = getAttemptsCount() + 1;
+  const attemptData = {
+    lastName: studentData.lastName,
+    firstName: studentData.firstName,
+    classGrade: studentData.classGrade,
+    date: studentData.date,
+    time: new Date().toLocaleTimeString('ru-RU'),
+    timeSpent: timeSpent,
+    correct: correct,
+    partial: partial,
+    incorrect: incorrect,
+    total: total,
+    percent: percent,
+    grade: grade,
+    attemptNumber: attemptNumber,
+    timestamp: Date.now()
+  };
+  const allAttempts = saveAttempt(attemptData);
+
+  const stats = { total, correct, partial, incorrect, percent, grade, timeSpent, byType: typeStats, attemptNumber };
+  const reportText = generateReportText(stats);
+  localStorage.setItem('lastTestReport', reportText);
+  localStorage.setItem('lastTestStats', JSON.stringify(stats));
+
+  let attemptsHtml = '';
+  if (allAttempts.length > 0) {
+    allAttempts.forEach((a, i) => {
+      const isCurrent = a.timestamp === attemptData.timestamp;
+      const gc = a.percent >= 90 ? '#43a047' : a.percent >= 75 ? '#1e88e5' : a.percent >= 50 ? '#fb8c00' : '#e53935';
+      attemptsHtml += `<div class="attempt-item ${isCurrent ? 'current' : ''}">
+        <div class="attempt-number">${i + 1}</div>
+        <div class="attempt-details">
+          <div class="student">${a.lastName} ${a.firstName}, ${a.classGrade}${isCurrent ? ' <span style="color:#43a047; font-size:12px;">← текущая</span>' : ''}</div>
+          <div class="date">${a.date} · ${a.time} · ${a.timeSpent}</div>
+          <div style="font-size:12px; color:#666;">Правильных: ${a.correct}/${a.total}</div>
+        </div>
+        <div class="attempt-result">
+          <div class="percent">${a.percent}%</div>
+          <div class="grade-badge" style="background:${gc};">${a.grade}</div>
+        </div>
+      </div>`;
+    });
+  }
+
+  const attemptsLeft = MAX_ATTEMPTS - allAttempts.length;
+  let retryButtonHtml = '';
+  if (attemptsLeft > 0) {
+    retryButtonHtml = `<button class="btn btn-secondary" onclick="restartQuiz()">🔄 Пройти ещё раз (осталось ${attemptsLeft} ${attemptsLeft === 1 ? 'попытка' : (attemptsLeft < 5 ? 'попытки' : 'попыток')})</button>`;
+  } else {
+    retryButtonHtml = `<div class="limit-warning">
+      <strong>⚠️ Лимит попыток исчерпан</strong>
+      Вы использовали все ${MAX_ATTEMPTS} попытки. Повторное прохождение невозможно.
+    </div>`;
+  }
+
+  document.getElementById('results').innerHTML = `
+    <h2 style="color:#1e3c72;">Результаты теста</h2>
+
+    <div class="student-info-card">
+      <div class="info-row"><span class="info-label">Ученик:</span><span class="info-value">${studentData.lastName} ${studentData.firstName}</span></div>
+      <div class="info-row"><span class="info-label">Класс:</span><span class="info-value">${studentData.classGrade}</span></div>
+      <div class="info-row"><span class="info-label">Дата:</span><span class="info-value">${studentData.date}</span></div>
+      <div class="info-row"><span class="info-label">Время прохождения:</span><span class="info-value">${timeSpent}</span></div>
+      <div class="info-row"><span class="info-label">Попытка №:</span><span class="info-value">${attemptNumber} из ${MAX_ATTEMPTS}</span></div>
+    </div>
+
+    <div class="score-circle" style="background:${gradeColor};">
+      <div class="score-num">${correct}/${total}</div>
+      <div class="score-label">${percent}%</div>
+    </div>
+    <div class="grade">Ваша оценка: ${grade}</div>
+    <p style="font-size:16px; line-height:1.6;">${message}</p>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="num">${correct}</div><div class="lbl">Верно</div></div>
+      <div class="stat-card"><div class="num">${partial}</div><div class="lbl">Частично</div></div>
+      <div class="stat-card"><div class="num">${incorrect}</div><div class="lbl">Неверно</div></div>
+      <div class="stat-card"><div class="num">${total}</div><div class="lbl">Всего</div></div>
+    </div>
+
+    <div class="attempts-section">
+      <h3>📋 История попыток <span class="attempts-counter">${allAttempts.length} / ${MAX_ATTEMPTS}</span></h3>
+      <p class="attempts-info">Все ваши попытки прохождения теста:</p>
+      <div class="attempts-list">
+        ${attemptsHtml}
+      </div>
+    </div>
+
+    <div class="send-section">
+      <h3>💾 Сохранить результаты</h3>
+      <p>Выберите удобный способ сохранения отчёта:</p>
+      <div class="send-buttons">
+        <button class="btn btn-info" onclick="copyToClipboard()">📋 Скопировать результаты</button>
+        <button class="btn btn-warning" onclick="downloadReport()">💾 Скачать файл</button>
+        <button class="btn btn-primary" onclick="printReport()">🖨️ Распечатать</button>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>📊 Результаты по типам заданий</h3>
+      ${statsHtml}
+    </div>
+
+    <div class="summary">
+      <h3>📝 Разбор ответов</h3>
+      <p style="font-size:13px; color:#666; margin-bottom:15px;">Зелёным отмечены верные ответы, красным — неверные, оранжевым — частично верные. Для каждого вопроса указан ваш ответ и правильный ответ.</p>
+      ${reviewHtml}
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Рекомендации:</strong>
+      <ul>
+        <li>Повторите определения: политическая система, политическая элита, политическое лидерство, абсентеизм</li>
+        <li>Запомните 4 подсистемы политической системы и их содержание</li>
+        <li>Изучите функции политической системы и признаки государственной власти</li>
+        <li>Разберитесь в типах и стилях политического лидерства</li>
+        <li>Обратите внимание на формулу С.В. Володенкова</li>
+      </ul>
+    </div>
+    ${retryButtonHtml}
+
+    <div class="footer-note">
+      © Учебник «Обществознание. 10 класс» под ред. Д. А. Медведева (Просвещение, 2026)
+    </div>
+  `;
+  document.getElementById('results').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function restartQuiz() {
+  if (getAttemptsCount() >= MAX_ATTEMPTS) {
+    showToast('⚠️ Лимит попыток исчерпан!', 'error');
+    showAllAttempts();
+    return;
+  }
+  currentQ = 0;
+  answers = [];
+  userAnswers = [];
+  partialAnswers = [];
+  testStartTime = null;
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('quizContent').style.display = 'none';
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('startScreen').style.display = 'block';
+  updateAttemptsWarning();
+  window.scrollTo(0, 0);
+}
+
+function copyToClipboard() {
+  const reportText = localStorage.getItem('lastTestReport');
+  navigator.clipboard.writeText(reportText).then(() => {
+    showToast('✅ Результаты скопированы в буфер обмена!', 'success');
+  }).catch(() => {
+    const textarea = document.createElement('textarea');
+    textarea.value = reportText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    showToast('✅ Результаты скопированы!', 'success');
+  });
+}
+
+function downloadReport() {
+  const reportText = localStorage.getItem('lastTestReport');
+  const fileName = `Тест_§17_${studentData.lastName}_${studentData.firstName}_${studentData.classGrade}_попытка${getAttemptsCount()}.txt`;
+  const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('💾 Файл скачан', 'success');
+}
+
+function printReport() {
+  const reportText = localStorage.getItem('lastTestReport');
+  const printWindow = window.open('', '', 'width=800,height=600');
+  printWindow.document.write(`
+    <html><head><title>Результаты теста</title>
+    <style>body{font-family:monospace;padding:20px;white-space:pre-wrap;font-size:13px;}</style>
+    </head><body>${reportText.replace(/\n/g, '<br>')}</body></html>
+  `);
+  printWindow.document.close();
+  printWindow.focus();
+  setTimeout(() => { printWindow.print(); }, 300);
+}
+
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem(STORAGE_KEY_STUDENT);
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      document.getElementById('lastName').value = data.lastName || '';
+      document.getElementById('firstName').value = data.firstName || '';
+      if (data.classGrade) document.getElementById('classGrade').value = data.classGrade;
+    } catch (e) {}
+  }
+  updateAttemptsWarning();
+});
+</script>
+</body>
+</html>
